@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "meldpet"
 version = "0.1.0"
 description = "Production pipeline: MELD Graph lesion prediction + PETPrep + PET-MELD fusion (Snakemake)."
-readme = "README.md"
+readme = "USER_GUIDE.md"
 requires-python = ">=3.9"
 dependencies = [
     "snakemake>=8,<10",
