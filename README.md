@@ -33,6 +33,7 @@ meldpet status
 
 ## Documentation
 
+- **[Meld_PET.md](Meld_PET.md)** — full pipeline reference (architecture, stages, diagrams)
 - **[pipeline/USER_GUIDE.md](pipeline/USER_GUIDE.md)** — setup, CLI, config, statistics, SLURM
 - **[meld.md](meld.md)** — MELD container implementation
 - **[petprep.md](petprep.md)** — PETPrep container implementation

@@ -35,10 +35,15 @@ def validate_config(cfg: dict[str, Any]) -> tuple[list[str], list[str]]:
         if key not in cfg:
             errors.append(f"missing required key: {key}")
 
-    for key in ("sif", "petprep_sif", "fs_license", "meld_license", "mapping"):
+    for key in ("sif", "fs_license", "meld_license", "mapping"):
         path = cfg.get(key)
         if path and not os.path.isfile(path):
             errors.append(f"{key} not found: {path}")
+
+    if cfg.get("petprep_use_apptainer", True):
+        path = cfg.get("petprep_sif")
+        if path and not str(path).startswith("docker://") and not os.path.isfile(path):
+            errors.append(f"petprep_sif not found: {path}")
 
     for key in ("bids_root", "models_src", "meld_params_src"):
         path = cfg.get(key)

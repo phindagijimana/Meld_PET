@@ -117,8 +117,12 @@ def _run_check(cfg):
     chk("apptainer runtime", bool(shutil.which(cfg.get("apptainer_bin", "apptainer"))),
         cfg.get("apptainer_bin", "apptainer"))
     chk("snakemake", bool(shutil.which("snakemake")))
-    for key in ("sif", "petprep_sif", "fs_license", "meld_license", "mapping"):
+    for key in ("sif", "fs_license", "meld_license", "mapping"):
         chk(key, os.path.isfile(cfg.get(key, "")), cfg.get(key, ""))
+    if cfg.get("petprep_use_apptainer", True):
+        psif = cfg.get("petprep_sif", "")
+        ok_psif = str(psif).startswith("docker://") or os.path.isfile(psif)
+        chk("petprep_sif", ok_psif, psif)
     for key in ("models_src", "meld_params_src", "bids_root"):
         chk(key, os.path.isdir(cfg.get(key, "")), cfg.get(key, ""))
     work = cfg.get("work", "")

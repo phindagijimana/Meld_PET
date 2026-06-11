@@ -8,7 +8,7 @@ rule petprep:
     params:
         ses=lambda wc: SAMPLES[wc.sub]["session"],
         cmd=lambda wc: petprep_cmd(wc.sub),
-        glob_tpl=config.get(
+        glob_tpl=lambda wc: config.get(
             "petprep_ref_glob",
             "{sub}/{session}/pet/{sub}_{session}_space-*T1w*desc-*pet*.nii.gz",
         ),

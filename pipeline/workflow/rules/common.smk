@@ -114,7 +114,9 @@ def petprep_cmd(sub):
             f'{c["apptainer_bin"]} exec {bind_args} '
             f'{c["petprep_sif"]} {inner}'
         )
+    runner = c.get("petprep_container_bin", "docker")
+    vol_args = " ".join(f"-v {b}" for b in binds)
     return (
-        f"docker run --rm {bind_args.replace('--bind', '-v')} "
+        f"{runner} run --rm {vol_args} "
         f'{c.get("petprep_image", "ghcr.io/nipreps/petprep:0.0.6")} {inner}'
     )
