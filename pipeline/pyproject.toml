@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meldpet"
+version = "0.1.0"
+description = "Production pipeline: MELD Graph lesion prediction + PETPrep + PET-MELD fusion (Snakemake)."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "snakemake>=8,<10",
+    "snakemake-executor-plugin-slurm>=0.10",
+    "click>=8",
+    "pandas>=1.5,<3",
+    "pyyaml>=6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[project.scripts]
+meldpet = "meldpet.cli:main"
+
+[tool.setuptools]
+packages = ["meldpet"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

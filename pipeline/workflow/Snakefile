@@ -1,0 +1,27 @@
+# ===========================================================================
+# MELD + PET — Snakemake workflow
+#
+#   prepare → petprep → meld → register (+ stats) → visualize → aggregate
+#
+# Run via the `meldpet` CLI (recommended) or directly:
+#   snakemake -s workflow/Snakefile --cores 1
+#   snakemake -s workflow/Snakefile --profile profiles/slurm
+# ===========================================================================
+from pathlib import Path
+
+configfile: str(Path(workflow.basedir).parent / "config" / "config.yaml")
+
+include: "rules/common.smk"
+include: "rules/prepare.smk"
+include: "rules/petprep.smk"
+include: "rules/meld.smk"
+include: "rules/register.smk"
+include: "rules/visualize.smk"
+include: "rules/aggregate.smk"
+
+
+rule all:
+    default_target: True
+    input:
+        COHORT_CSV,
+        expand(viz_flag("{sub}"), sub=SUBJECTS),

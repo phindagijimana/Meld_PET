@@ -1,0 +1,26 @@
+# Config with site paths
+pipeline/config/config.yaml
+
+# Work outputs and patient data
+work/
+data/
+*.tsv
+!pipeline/config/*.example.*
+
+# Mapping / resolution (copy from *.example)
+PET_BIDS_SUB.csv
+*_session_resolution.csv
+
+# Snakemake
+pipeline/.snakemake/
+pipeline/**/.snakefile
+**/__pycache__/
+*.pyc
+.pytest_cache/
+
+# Container images
+*.sif
+
+# IDE
+.vscode/
+.idea/

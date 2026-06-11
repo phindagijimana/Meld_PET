@@ -1,0 +1,13 @@
+name: meldpet
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python>=3.10
+  - snakemake>=8,<10
+  - pip
+  - pip:
+      - snakemake-executor-plugin-slurm>=0.10
+      - click>=8
+      - pandas>=1.5,<3
+      - pyyaml>=6
