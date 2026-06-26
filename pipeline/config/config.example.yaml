@@ -21,7 +21,7 @@ fallback_session: ses-1
 
 # Glob (under petprep_out) to locate the PET reference in anatomical space.
 # {sub} and {session} are substituted per sample row.
-petprep_ref_glob: "{sub}/{session}/pet/{sub}_{session}_space-*T1w*desc-*pet*.nii.gz"
+petprep_ref_glob: "{sub}/{session}/pet/{sub}_*_space-*T1w*desc-preproc_pet*.nii.gz"
 
 # --- PETPrep container ------------------------------------------------------
 petprep_sif:   /path/to/petprep.sif
@@ -56,7 +56,7 @@ nas_dest: /mnt/nfs/Gugger_Lab/MELD_PET
 # --- Resource hints (SLURM profile) -----------------------------------------
 resources:
   prepare:   { mem_mb: 4000,  cpus_per_task: 1, runtime: 20 }
-  petprep:   { mem_mb: 32000, cpus_per_task: 4, runtime: 480 }
+  petprep:   { mem_mb: 32000, cpus_per_task: 4, runtime: 960 }
   meld:      { mem_mb: 64000, cpus_per_task: 8, runtime: 1440 }
   register:  { mem_mb: 16000, cpus_per_task: 2, runtime: 120 }
   visualize: { mem_mb: 8000,  cpus_per_task: 1, runtime: 30 }

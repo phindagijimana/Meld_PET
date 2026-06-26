@@ -1,0 +1,12 @@
+# Snakemake profile for an *interactive* SLURM allocation (salloc / srun --pty).
+# Do NOT use with --profile slurm — run meldpet without slurm profile inside the allocation.
+#
+#   salloc --partition=interactive --mem=32G --cpus-per-task=4 --time=12:00:00
+#   meldpet --profile interactive --cores 4 run sub-002
+#
+# interactive partition: 12 h max. For PETPrep/MELD >12 h use general instead:
+#   salloc --partition=general --mem=32G --cpus-per-task=4 --time=16:00:00
+
+cores: 4
+printshellcmds: True
+rerun-incomplete: True

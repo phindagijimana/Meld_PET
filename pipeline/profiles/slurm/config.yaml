@@ -15,7 +15,7 @@ set-resources:
   petprep:
     mem_mb: 32000
     cpus_per_task: 4
-    runtime: 480
+    runtime: 960
   meld:
     mem_mb: 64000
     cpus_per_task: 8

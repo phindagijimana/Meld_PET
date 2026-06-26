@@ -10,9 +10,10 @@ rule petprep:
         cmd=lambda wc: petprep_cmd(wc.sub),
         glob_tpl=lambda wc: config.get(
             "petprep_ref_glob",
-            "{sub}/{session}/pet/{sub}_{session}_space-*T1w*desc-*pet*.nii.gz",
+            "{sub}/{session}/pet/{sub}_*_space-*T1w*desc-preproc_pet*.nii.gz",
         ),
         petprep_out=PETPREP_OUT,
+        work_dir=lambda wc: os.path.join(WORK, "petprep_work", wc.sub),
         stage_script=os.path.join(PIPELINE_DIR, "workflow", "scripts", "stage_pet_ref.py"),
     log:
         os.path.join(LOG_DIR, "petprep_{sub}.log"),
@@ -23,7 +24,10 @@ rule petprep:
     shell:
         """
         set -euo pipefail
-        mkdir -p "$(dirname {output.flag})" "$(dirname {output.pet})"
+        mkdir -p "$(dirname {output.flag})" "$(dirname {output.pet})" "{params.work_dir}" "{params.petprep_out}"
+        export TMPDIR="{config[work]}/tmp"
+        export APPTAINER_TMPDIR="$TMPDIR"
+        mkdir -p "$TMPDIR"
         {params.cmd} > {log} 2>&1
         python {params.stage_script} \
             --sub {wildcards.sub} \

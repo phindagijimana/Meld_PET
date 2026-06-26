@@ -49,6 +49,10 @@ def pet_in_meld(sub):
     return os.path.join(WORK, "output", "pet_aligned", sub, "pet_in_meld.nii.gz")
 
 
+def pred_in_meld(sub):
+    return os.path.join(WORK, "output", "pet_aligned", sub, "prediction_in_meld.nii.gz")
+
+
 def pet_stats_csv(sub):
     return os.path.join(WORK, "output", "pet_aligned", sub,
                         f"pet_in_clusters_{sub}.csv")

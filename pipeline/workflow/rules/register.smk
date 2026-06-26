@@ -6,6 +6,7 @@ rule register:
         pet=pet_staged("{sub}"),
     output:
         pet_out=pet_in_meld("{sub}"),
+        pred_out=pred_in_meld("{sub}"),
         csv=pet_stats_csv("{sub}"),
     params:
         cmd=lambda wc: apptainer_cmd(
