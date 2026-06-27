@@ -1,4 +1,5 @@
-# prepare.smk — stage T1w/FLAIR into MELD input tree and BIDS-style data/ layout.
+# prepare.smk — stage T1w into MELD input tree (and BIDS-style data/ layout).
+# FLAIR is never staged when meld_t1_only is true (default).
 rule prepare:
     input:
         t1=lambda wc: SAMPLES[wc.sub]["t1w"],
@@ -25,8 +26,14 @@ rule prepare:
         shutil.copyfile(input.t1, output.t1)
         shutil.copyfile(input.t1, os.path.join(anat, f"{sub}_{ses}_T1w.nii.gz"))
 
-        if params.flair and os.path.isfile(params.flair):
-            fdir = os.path.join(params.work, "input", sub, "FLAIR")
-            os.makedirs(fdir, exist_ok=True)
-            shutil.copyfile(params.flair, os.path.join(fdir, f"{sub}_FLAIR.nii.gz"))
-            shutil.copyfile(params.flair, os.path.join(anat, f"{sub}_{ses}_FLAIR.nii.gz"))
+        flair_dir = os.path.join(params.work, "input", sub, "FLAIR")
+        flair_anat = os.path.join(anat, f"{sub}_{ses}_FLAIR.nii.gz")
+        if config.get("meld_t1_only", True):
+            if os.path.isdir(flair_dir):
+                shutil.rmtree(flair_dir)
+            if os.path.isfile(flair_anat):
+                os.remove(flair_anat)
+        elif params.flair and os.path.isfile(params.flair):
+            os.makedirs(flair_dir, exist_ok=True)
+            shutil.copyfile(params.flair, os.path.join(flair_dir, f"{sub}_FLAIR.nii.gz"))
+            shutil.copyfile(params.flair, flair_anat)

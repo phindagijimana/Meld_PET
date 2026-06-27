@@ -1,4 +1,5 @@
 # meld.smk — MELD Graph lesion prediction inside the apptainer image.
+# Uses T1w only when prepare runs with meld_t1_only (default): no FLAIR/ folder under work/input/.
 rule meld:
     input:
         t1=meld_input_t1("{sub}"),

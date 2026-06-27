@@ -7,7 +7,7 @@ Detailed reference for the pipeline. For install and a quick start, see [README.
 ```
 BIDS (PET + T1w)
     │
-prepare ──► MELD input (T1w ± FLAIR)
+prepare ──► MELD input (T1w only; set `meld_t1_only: false` to include FLAIR)
     │
     ├── petprep ──► PETPrep ──► work/pet/<sub>_pet.nii.gz
     │

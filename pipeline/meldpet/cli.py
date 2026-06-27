@@ -185,7 +185,7 @@ def check(ctx):
 @click.argument("subjects", nargs=-1)
 @click.pass_context
 def prepare(ctx, subjects):
-    """Stage T1w/FLAIR for SUBJECTS (default: all)."""
+    """Stage T1w for SUBJECTS (default: all). FLAIR is not staged when meld_t1_only is true."""
     _run_stage(ctx, "prepare", subjects)
 
 

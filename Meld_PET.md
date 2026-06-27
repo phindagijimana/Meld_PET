@@ -12,7 +12,7 @@ For install/quick start see [README.md](README.md). For CLI details and threshol
 
 Each subject with BIDS PET + T1w goes through:
 
-1. **Prepare** — stage T1w (± FLAIR) into the MELD input tree.
+1. **Prepare** — stage T1w into the MELD input tree (`meld_t1_only: true` by default; FLAIR is not passed to MELD).
 2. **PETPrep** — preprocess PET in BIDS; produce a T1w-space reference image.
 3. **MELD** — FreeSurfer recon + graph lesion prediction (`prediction.nii.gz`, `T1.mgz`).
 4. **Register** — rigid PET → MELD T1 grid; compute PET↔lesion statistics.
@@ -28,7 +28,7 @@ MELD and PETPrep are **independent** after prepare and can run **in parallel** o
 ```mermaid
 flowchart TB
     subgraph inputs["Inputs"]
-        BIDS["BIDS dataset<br/>PET + T1w ± FLAIR"]
+        BIDS["BIDS dataset<br/>PET + T1w"]
         MAP["PET_BIDS_SUB.csv<br/>EP_ID ↔ BIDS_ID"]
         RES["PET_session_resolution.csv<br/>(optional)"]
         MELD_ASSETS["MELD SIF + licenses<br/>models/ + meld_params/"]
@@ -133,7 +133,7 @@ bids_root/
     └── ses-N/
         ├── anat/
         │   ├── sub-XXX_ses-N_T1w.nii.gz      # required
-        │   └── sub-XXX_ses-N_FLAIR.nii.gz    # optional (MELD input)
+        │   └── sub-XXX_ses-N_T1w.nii.gz       # MELD input (T1 only by default)
         └── pet/
             └── sub-XXX_ses-N_pet.nii.gz      # required for PETPrep
 ```
@@ -219,7 +219,7 @@ samples.tsv (t1w, flair?)
         │
         ▼ copy
 work/input/<sub>/T1/<sub>_T1w.nii.gz     ──► MELD new_pt_pipeline.py
-data/<sub>/<ses>/anat/...                ──► BIDS-style mirror (optional FLAIR)
+data/<sub>/<ses>/anat/...                ──► BIDS-style mirror (T1w; FLAIR omitted when meld_t1_only)
 ```
 
 No containers. Fast; safe to rerun (overwrites copies).

@@ -40,6 +40,8 @@ meld_params_src: /path/to/meld_graph/meld_data/meld_params
 container_tag:   meld_graph_v2.2.4
 freesurfer_home_in: /opt/freesurfer-7.2.0
 meld_fastsurfer: false
+# When true (default), MELD uses T1w only — FLAIR is not staged even if in samples.tsv.
+meld_t1_only: true
 
 # --- Tracer / statistics ----------------------------------------------------
 # deficit: lower uptake in lesion vs mirror/contra is concordant (FDG hypometabolism)
