@@ -1,6 +1,11 @@
 # Config with site paths
 pipeline/config/config.yaml
 
+# Site-local documentation and operational scripts (keep on NAS / local only)
+meldpet.md
+meldpet.docx
+pipeline/scripts/submit_*.sh
+
 # Work outputs and patient data
 work/
 data/
